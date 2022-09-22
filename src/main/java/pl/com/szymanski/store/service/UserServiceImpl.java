@@ -33,11 +33,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActive(true);
         Role userRole = roleRepository.findByName("CUSTOMER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        return userrepository.save(user);
+        userrepository.save(user);
     }
 }
