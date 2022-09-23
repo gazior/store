@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -41,11 +43,11 @@
             </div>
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">Twoje dane</h4>
-                <form class="needs-validation" novalidate="" action="/order" method="post">
+                <form:form class="needs-validation" novalidate="" modelAttribute="address"  action="/order" method="post">
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">Imię</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                            <form:input path="firstName" type="text" class="form-control" id="firstName" placeholder="" value="" required=""/>
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
@@ -53,7 +55,7 @@
 
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label">Nazwisko</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                            <form:input path="lastName" type="text" class="form-control" id="lastName" placeholder="" value="" required=""/>
                             <div class="invalid-feedback">
                                 Valid last name is required.
                             </div>
@@ -62,35 +64,61 @@
 
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email">
+                            <form:input path="email" type="email" class="form-control" id="email"/>
                             <div class="invalid-feedback">
                                 Please enter a valid email address for shipping updates.
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <label for="address" class="form-label">Adres</label>
-                            <input type="text" class="form-control" id="address" required="">
+                        <div class="col-6">
+                            <label for="address" class="form-label">Miasto</label>
+                            <form:input path="city" type="text" class="form-control" id="city" required=""/>
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="address" class="form-label">Ulica</label>
+                            <form:input path="street" type="text" class="form-control" id="address" required=""/>
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="address" class="form-label">Numer domu</label>
+                            <form:input path="houseNumber" type="text" class="form-control" id="houseNumber" required=""/>
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="address" class="form-label">Numer mieszkania</label>
+                            <form:input path="flatNumber" type="text" class="form-control" id="flatNumber" required=""/>
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
                             </div>
                         </div>
 
 
-                        <div class="col-md-6">
-                            <label for="state" class="form-label">Województwo</label>
-                            <select class="form-select" id="state" required="">
-                                <option value="">Wybierz</option>
-                                <option>Mazowieckie</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please provide a valid state.
-                            </div>
-                        </div>
+<%--                        <div class="col-md-6">--%>
+<%--                            <label for="state" class="form-label">Województwo</label>--%>
+<%--                            <form:select path="voivodeship" class="form-select" id="state" required="">--%>
+<%--                                <form:option value="-" label="Wybierz..."/>--%>
+<%--                                <form:options label="Mazowieckie"/>--%>
+<%--                            </form:select>--%>
+<%--                            <div class="invalid-feedback">--%>
+<%--                                Please provide a valid state.--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="col-md-6">
+
+
+                <div class="col-md-6">
                             <label for="zip" class="form-label">Kod pocztowy</label>
-                            <input type="text" class="form-control" id="zip" placeholder="" required="">
+                            <form:input path="zipCode" type="text" class="form-control" id="zip" placeholder="" required=""/>
                             <div class="invalid-feedback">
                                 Zip code required.
                             </div>
@@ -99,31 +127,8 @@
 
                     <hr class="my-4">
 
-
-                    <hr class="my-4">
-
-                    <h4 class="mb-3">Payment</h4>
-
-                    <div class="my-3">
-
-                        <div class="form-check">
-                            <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
-                            <label class="form-check-label" for="debit">Płatnośc przy odbiorze</label>
-                        </div>
-                        <div class="form-check">
-                            <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
-                            <label class="form-check-label" for="paypal">PayPal</label>
-                        </div>
-                        <div class="form-check">
-                            <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
-                            <label class="form-check-label" for="paypal">Przelew tradycyjny</label>
-                        </div>
-                    </div>
-
-                    <hr class="my-4">
-
                     <button class="w-100 btn btn-primary btn-lg" type="submit">Złóż zamówienie</button>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>

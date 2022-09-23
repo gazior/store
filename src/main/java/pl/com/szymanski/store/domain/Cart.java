@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,9 +23,9 @@ import java.util.List;
         proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Cart {
 
-    private List<Product> products = new ArrayList<>();
+    private Set<Product> products = new HashSet<>();
 
-    public List<Product> getAllProduct() {
+    public Set<Product> getAllProduct() {
         return products;
     }
 }
