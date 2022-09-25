@@ -16,11 +16,17 @@
         </h4>
         <ul class="list-group mb-3">
             <c:forEach items="${cart}" var="product">
-                <li class="list-group-item d-flex justify-content-between lh-sm">
+                <li class="list-group-item ">
                     <div>
-                        <h6 class="my-0">${product.name}</h6>
+                        <h6>${product.product.name}</h6>
                     </div>
-                    <span class="text-muted">${product.price}</span>
+                    <form class="text-muted" action="/cart/add" method="GET">
+                        <input type="text" value="${product.quantity}" name="quantity">
+                        <input type="hidden" value="${product.product.name}" name="product">
+                        <input class="btn btn-primary" type="submit" value="Zmień ilość">
+                    </form>
+                    <span class="text-muted">${product.quantity*product.product.price}</span>
+                    <span class="text-muted"><a href="/cart/remove/${cart.indexOf(product)}">Usuń</a></span>
                 </li>
             </c:forEach>
 

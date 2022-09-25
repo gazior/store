@@ -72,14 +72,13 @@
                 <label for="inputZip" class="form-label">Kod pocztowy</label>
                 <form:input path="zipCode" type="text" class="form-control" id="inputZip"/>
             </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary">Zarejestruj</button>
+                </div>
+            </form:form>
         </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Zarejestruj</button>
-        </div>
-        </form:form>
-    </div>
+
 </div>
-<div><br><br><br><br><br></div>
 </div>
 <jsp:include page="footer.jsp"/>
 <script src="/webjars/bootstrap/5.2.0/js/bootstrap.js"></script>

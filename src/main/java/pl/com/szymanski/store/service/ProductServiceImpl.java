@@ -7,7 +7,7 @@ import pl.com.szymanski.store.repository.ProductRepository;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 

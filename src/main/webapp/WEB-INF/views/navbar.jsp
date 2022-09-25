@@ -35,9 +35,14 @@
                         <li class="nav-item">
                             <a class="nav-link " href="/cart">Pokaż koszyk</a>
                         </li>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-item" data-bs-toggle="offcanvas" href="#offcanvasRight"--%>
+<%--                               aria-controls="#offcanvasRight">Pokaż koszyk</a>--%>
+<%--                        </li>--%>
                     </ul>
                     <sec:authorize access="isAuthenticated()">
-                        <p class="text-light me-2">Zalogowany jako: <sec:authentication property="principal.username"/></p>
+                        <p class="text-light me-2">Zalogowany jako: <sec:authentication
+                                property="principal.username"/></p>
                         <form class="me-2" action="<c:url value="/logout"/>" method="post">
                             <input class="btn btn-outline-light" type="submit" value="Wyloguj">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -51,7 +56,17 @@
             </div>
         </nav>
     </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            ...
+        </div>
+    </div>
 </div>
 <script src="/webjars/bootstrap/5.2.0/js/bootstrap.js"></script>
+<script src="/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

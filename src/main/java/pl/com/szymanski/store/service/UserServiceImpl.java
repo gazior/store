@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    
+
     public User findByUserName(String userName) {
         return userrepository.findByUsername(userName);
 
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
-        Role userRole = roleRepository.findByName("CUSTOMER");
+        Role userRole = roleRepository.findByName("ROLE_CUSTOMER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userrepository.save(user);
     }

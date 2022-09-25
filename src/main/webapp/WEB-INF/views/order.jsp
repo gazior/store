@@ -22,9 +22,10 @@
                     <c:forEach items="${cart}" var="product">
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
-                                <h6 class="my-0">${product.name}</h6>
+                                <h6 class="my-0">${product.product.name}</h6>
                             </div>
-                            <span class="text-muted">${product.price}</span>
+                            <span class="text-muted">${product.quantity}</span>
+                            <span class="text-muted">${product.quantity*product.product.price}</span>
                         </li>
                     </c:forEach>
 
@@ -114,8 +115,6 @@
 <%--                            </div>--%>
 <%--                        </div>--%>
 
-
-
                 <div class="col-md-6">
                             <label for="zip" class="form-label">Kod pocztowy</label>
                             <form:input path="zipCode" type="text" class="form-control" id="zip" placeholder="" required=""/>
@@ -126,9 +125,15 @@
                     </div>
 
                     <hr class="my-4">
-
                     <button class="w-100 btn btn-primary btn-lg" type="submit">Złóż zamówienie</button>
+
                 </form:form>
+<%--                <form:form class="needs-validation" novalidate="" modelAttribute="order"  action="/order" method="post">--%>
+<%--                    <form:input path="zipCode" type="text" class="form-control" id="zip" placeholder="" required=""/>--%>
+<%--                    <form:input path="zipCode" type="text" class="form-control" id="zip" placeholder="" required=""/>--%>
+<%--                    <form:input path="zipCode" type="text" class="form-control" id="zip" placeholder="" required=""/>--%>
+<%--                    <form:input path="zipCode" type="text" class="form-control" id="zip" placeholder="" required=""/>--%>
+<%--                </form:form>--%>
             </div>
         </div>
     </div>

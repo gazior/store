@@ -16,7 +16,7 @@
 </head>
 <body class="bg-light">
 <jsp:include page="navbar.jsp"/>
-<h1>Strona główna</h1>
+
 <jsp:include page="footer.jsp"/>
 <script src="/webjars/bootstrap/5.2.0/js/bootstrap.js"></script>
 </body>

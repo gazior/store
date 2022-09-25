@@ -31,9 +31,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
     private Address address;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "orders_products", joinColumns = @JoinColumn(name = "order_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<OrderDetails> orderDetails;
 
 }

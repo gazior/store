@@ -8,7 +8,6 @@ import java.util.List;
 @Service
 public interface ProductService {
 
-
     public List<Product> findAllProducts();
 
     public Product findById(Long id);

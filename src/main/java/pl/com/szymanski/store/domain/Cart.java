@@ -9,13 +9,9 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-@Getter
-@Setter
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
@@ -23,9 +19,28 @@ import java.util.Set;
         proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Cart {
 
-    private Set<Product> products = new HashSet<>();
+    private List<CartItem> cartItems = new ArrayList<>();
 
-    public Set<Product> getAllProduct() {
-        return products;
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    public void addToCart(CartItem cartItem) {
+        Optional<CartItem> foundItem = findItem(cartItem);
+        foundItem.
+                ifPresentOrElse(item -> item.addQuantity(cartItem.getQuantity()),
+                        () -> cartItems.add(cartItem));
+    }
+
+    public Optional<CartItem> findItem(CartItem item) {
+        return cartItems
+                .stream()
+                .filter(p -> p.getProduct().getId() == item.getProduct().getId())
+                .findFirst();
     }
 }
+
