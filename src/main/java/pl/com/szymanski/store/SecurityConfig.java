@@ -3,6 +3,8 @@ package pl.com.szymanski.store;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +20,8 @@ import org.springframework.security.oauth2.server.authorization.config.ClientSet
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.UUID;
 
@@ -132,4 +136,14 @@ public class SecurityConfig {
     }
 
 
+    @Bean
+    public WebClient.Builder getWebClient()
+    {
+        return WebClient.builder();
+    }
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
 }

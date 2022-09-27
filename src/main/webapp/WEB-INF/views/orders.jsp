@@ -11,13 +11,14 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
+            <td><c:out value="${payment}"></c:out></td>
 
             <table class="table table-hover table-primary table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Numer zamówienia</th>
                     <th scope="col">Wartość zamówienia</th>
-                    <th scope="col">Metoda Płatności</th>
+
                     <th scope="col"></th>
                 </tr>
                 </thead>

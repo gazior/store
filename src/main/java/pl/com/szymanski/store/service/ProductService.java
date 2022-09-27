@@ -11,5 +11,6 @@ public interface ProductService {
     public List<Product> findAllProducts();
 
     public Product findById(Long id);
+    void saveProduct(Product product);
 
 }

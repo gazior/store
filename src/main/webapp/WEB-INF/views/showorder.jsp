@@ -18,14 +18,16 @@
                     <th>Numer zamówienia</th>
                     <th>Metoda płatności</th>
                     <th>Kwota zamówienia</th>
+                    <th>Status płatności</th>
                 </tr>
                 </thead>
             </tr>
             <tbody>
             <tr>
                 <th><c:out value="${order.id}"/></th>
-                <th><c:out value="${order.paymentMethod}"/></th>
+                <th><c:out value="${order.payment.name}"/></th>
                 <th><c:out value="${order.sumPrice}"/></th>
+                <th><c:out value="${payment}"/></th>
             </tr>
             </tbody>
         </table>

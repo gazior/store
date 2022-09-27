@@ -31,6 +31,12 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
     private Address address;
+    @ManyToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name = "orders_products", joinColumns = @JoinColumn(name = "order_id"),
 //            inverseJoinColumns = @JoinColumn(name = "product_id"))

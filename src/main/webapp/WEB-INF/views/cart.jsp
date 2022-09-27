@@ -37,7 +37,7 @@
         </ul>
 
         <div class="input-group">
-            <a href="/order" class="btn btn-secondary">Kup teraz!</a>
+            <a href="/order/step1" class="btn btn-secondary">Kup teraz!</a>
         </div>
     </div>
 </div>

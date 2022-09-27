@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface OrderService {
 
-    void saveOrder(Address address, OrderDetails orderDetails);
+    Long saveOrder(OrderDetails orderDetails);
     List<Order> findOrderByUserId(User user);
     Order findOrderById(Long id);
 
