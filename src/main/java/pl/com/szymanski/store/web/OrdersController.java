@@ -18,7 +18,6 @@ public class OrdersController {
     private final UserService userService;
     private final DeliveryService deliveryService;
     private final PaymentService paymentService;
-
     private final PayuService payuService;
 
 
@@ -43,6 +42,14 @@ public class OrdersController {
         return paymentService.findAll();
     }
 
+    @ModelAttribute("voivodeship")
+    public List<String> showVoivodeship(){
+        return List.of("Mazowieckie","Zachodniopomorskie","Pomorskie","Warmińsko-Mazurskie","Podlaskie","Lubelskie","Łódzkie","Wielkopolskie","Lubuskie","Dolnośląskie","Opolskie","Śląskie","Małopolskie","Podkarpackie","Świętokrzyskie");
+    }
+//    @ModelAttribute("address")
+//    public Address returnAddress(){
+//        return orderTmp.getAddress();
+//    }
 
     @GetMapping(value = "/orders")
     public String showOrders(Model model) {
@@ -53,14 +60,8 @@ public class OrdersController {
 
     @GetMapping(value = "/order")
     public String order(OrderDetails orderDetails) {
-//        model.addAttribute("cart", cart.getCartItems());
-//        model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
-//        model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
-//        model.addAttribute("address", address);
-//        model.addAttribute("order", order);
         Long id = orderService.saveOrder(orderDetails);
         return "redirect:/api/" + id;
-        //return "order1step";
     }
 
     @PostMapping(value = "/order")
@@ -79,6 +80,9 @@ public class OrdersController {
 
     @GetMapping(value = "order/step1")
     public String getStepOne(Model model, Address address) {
+        model.addAttribute("cart", cart.getCartItems());
+        model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
+        model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
         model.addAttribute("address", address);
         return "order1step";
     }
@@ -91,6 +95,9 @@ public class OrdersController {
 
     @GetMapping(value = "order/step2")
     public String getStepTwo(Model model, Delivery delivery) {
+        model.addAttribute("cart", cart.getCartItems());
+        model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
+        model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
         model.addAttribute("delivery", delivery);
         return "order2step";
     }
@@ -103,6 +110,9 @@ public class OrdersController {
 
     @GetMapping(value = "order/step3")
     public String getStepThree(Model model, Payment payment) {
+        model.addAttribute("cart", cart.getCartItems());
+        model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
+        model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
         model.addAttribute("payment", payment);
         return "order3step";
     }

@@ -1,28 +1,23 @@
 package pl.com.szymanski.store.web;
 
-import org.springframework.core.ResolvableType;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.com.szymanski.store.domain.User;
+import pl.com.szymanski.store.service.UserService;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class LoginController {
 
-//    @PostMapping(value = "/login")
-//    @ResponseBody
-//    public String login(){
-//        return "Sukces";
-//    }
+    private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    @GetMapping(value = "/login1")
-    @ResponseBody
-    public String log(){
-        return "logo";
+    public LoginController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 }

@@ -27,7 +27,7 @@
                     <tr>
                         <td>${order.id}</td>
                         <td>${order.sumPrice}</td>
-                        <td>${order.paymentMethod}</td>
+                        <td>${order.payment.name}</td>
                         <td><a href="/order/${order.id}">Szczegóły</a></td>
                     </tr>
                 </c:forEach>

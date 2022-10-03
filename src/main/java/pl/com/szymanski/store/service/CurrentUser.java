@@ -17,8 +17,6 @@ public class CurrentUser extends User {
         this.user = user;
 
     }
-
-
     public pl.com.szymanski.store.domain.User getUser() {
         return user;
     }

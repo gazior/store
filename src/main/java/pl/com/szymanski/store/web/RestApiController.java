@@ -5,7 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
-import pl.com.szymanski.store.domain.*;
+import pl.com.szymanski.store.domain.PayU.PaymentPayU;
+import pl.com.szymanski.store.domain.PayU.Response;
 import pl.com.szymanski.store.service.OrderService;
 import pl.com.szymanski.store.service.PaymentPayUService;
 import pl.com.szymanski.store.service.PayuService;
@@ -31,7 +32,7 @@ public class RestApiController {
 
     public ResponseEntity<Response> json(@PathVariable Long id) {
 
-        ResponseEntity<Response> response = payuService.RequestPayU(new Payu(), new Buyer(), new Product1(), id);
+        ResponseEntity<Response> response = payuService.RequestPayU(id);
 
         PaymentPayU paymentPayU = new PaymentPayU();
         paymentPayU.setExtOrderId(String.valueOf(id));

@@ -1,4 +1,4 @@
-package pl.com.szymanski.store.domain;
+package pl.com.szymanski.store.domain.PayU;
 
 import org.springframework.stereotype.Component;
 

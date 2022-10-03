@@ -8,7 +8,7 @@
 </head>
 <body class="bg-light">
 <jsp:include page="navbar.jsp"/>
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <c:forEach items="${products}" var="product">
         <div class="col-2">

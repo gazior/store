@@ -19,9 +19,11 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.com.szymanski.store.service.CustomAuthenticationFailureHandler;
 
 import java.util.UUID;
 
@@ -51,10 +53,10 @@ public class SecurityConfig {
             throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/cart/**").authenticated()
                 .antMatchers("/account/**").authenticated()
                 .antMatchers("/orders/**").authenticated()
-                .and().formLogin().loginPage("/login")
+                .antMatchers("/order/**").authenticated()
+                .and().formLogin().loginPage("/login").failureHandler(authenticationFailureHandler())//.failureForwardUrl("/login/error")
                 .and().logout().logoutSuccessUrl("/");
 //        http.authorizeRequests()
 //                .antMatchers("/oauth_login")
@@ -129,7 +131,10 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
     @Bean
     public ProviderSettings providerSettings() {
         return ProviderSettings.builder().build();

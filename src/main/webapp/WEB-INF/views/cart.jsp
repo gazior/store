@@ -8,8 +8,8 @@
 </head>
 <body class="bg-light">
 <jsp:include page="navbar.jsp"/>
-<div class="container-fluid">
-    <div class="col-md-5 col-lg-4 order-md-last">
+<div class="container">
+    <div class="col-md-8 col-lg-8 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Twój koszyk</span>
             <span class="badge bg-primary rounded-pill">${count}</span>

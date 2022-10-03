@@ -13,6 +13,13 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="https://sandbox-easy-geowidget-sdk.easypack24.net/inpost-geowidget.css"/>
+    <link rel="stylesheet" href="https://sandbox-easy-geowidget-sdk.easypack24.net/inpost-geowidget.js"/>
+    <script>
+        function afterPointSelected(point) {
+            alert('Wybrany punkt: ' + point.name);
+        }
+    </script>
     <link rel="stylesheet"
           href="/webjars/bootstrap/5.2.0/css/bootstrap.css"/>
 </head>
@@ -24,7 +31,7 @@
         <div class="col-md-5 col-lg-4 order-md-last">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-primary">Twój koszyk</span>
-                <span class="badge bg-primary rounded-pill">3</span>
+                <span class="badge bg-primary rounded-pill">${count}</span>
             </h4>
             <ul class="list-group mb-3">
                 <c:forEach items="${cart}" var="product">
@@ -42,13 +49,6 @@
                     <strong>${total}</strong>
                 </li>
             </ul>
-
-            <form class="card p-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
-                    <button type="submit" class="btn btn-secondary">Redeem</button>
-                </div>
-            </form>
         </div>
         <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">Wybierz rodzaj dostawy (2/3)</h4>
@@ -57,10 +57,11 @@
                     <div class="my-3">
                         <form:form modelAttribute="delivery" method="POST" action="/order/step2">
                             <form:radiobuttons class="form-check form-check-input form-check-label" path="id"
-                                               items="${deliveries}" itemLabel="name" itemValue="id"/>
+                                               items="${deliveries}" itemLabel="name" itemValue="id" required="true"/>
                             <hr class="my-4">
                             <button class="w-100 btn btn-primary btn-lg" type="submit">Wybierz metodę płatności</button>
                         </form:form>
+                        <inpost-geowidget id='3' onpoint="afterPointSelected" token='token-for-geo' language='en'  config='parcelCollect'></inpost-geowidget>
                     </div>
                 </div>
             </div>

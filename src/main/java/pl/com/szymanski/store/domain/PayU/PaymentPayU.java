@@ -1,4 +1,4 @@
-package pl.com.szymanski.store.domain;
+package pl.com.szymanski.store.domain.PayU;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Component
 public class User {
 
     @Id
@@ -20,6 +22,7 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+    //@Column(name = "unique")
     private String username;
     private String password;
     private String email;
