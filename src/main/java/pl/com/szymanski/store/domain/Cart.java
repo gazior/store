@@ -42,5 +42,13 @@ public class Cart {
                 .filter(p -> p.getProduct().getId() == item.getProduct().getId())
                 .findFirst();
     }
+
+    public Integer sum(){
+        return getCartItems().stream().mapToInt(CartItem::getQuantity).sum();
+    }
+
+    public Double total(){
+        return getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum();
+    }
 }
 

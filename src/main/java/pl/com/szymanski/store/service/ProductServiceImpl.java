@@ -30,4 +30,10 @@ public class ProductServiceImpl implements ProductService {
     public void saveProduct(Product product) {
         productRepository.save(product);
     }
+
+    @Override
+    public List<Product> findByNameEqualsIgnoreCase(String name) {
+        return productRepository.findAllByNameContains(name);
+    }
+
 }

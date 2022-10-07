@@ -62,14 +62,6 @@
                     <label for="inputEmail4" class="form-label">Email</label>
                     <form:input path="email" type="email" class="form-control" id="inputEmail4"/>
                 </div>
-                <div class="mb-3">
-                    <label for="inputAddress" class="form-label">Adres</label>
-                    <form:input path="address" type="text" class="form-control" id="inputAddress"/>
-                </div>
-                <div class="mb-3">
-                    <label for="inputZip" class="form-label">Kod pocztowy</label>
-                    <form:input path="zipCode" type="text" class="form-control" id="inputZip"/>
-                </div>
                 <div class="col-4">
                     <button type="submit" class="btn btn-primary">Zarejestruj</button>
                 </div>

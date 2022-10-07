@@ -16,8 +16,6 @@ import java.util.Map;
 public class CustomAuthenticationFailureHandler
         implements AuthenticationFailureHandler {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @Override
     public void onAuthenticationFailure(
             HttpServletRequest request,

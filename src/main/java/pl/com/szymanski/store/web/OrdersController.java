@@ -1,5 +1,6 @@
 package pl.com.szymanski.store.web;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import pl.com.szymanski.store.domain.*;
 import pl.com.szymanski.store.service.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class OrdersController {
@@ -14,18 +16,16 @@ public class OrdersController {
     private final Cart cart;
     private final OrderTmp orderTmp;
     private final OrderService orderService;
-    private final AddressService addressService;
     private final UserService userService;
     private final DeliveryService deliveryService;
     private final PaymentService paymentService;
     private final PayuService payuService;
 
 
-    public OrdersController(Cart cart, OrderTmp orderTmp, OrderService orderService, AddressService addressService, UserService userService, DeliveryService deliveryService, PaymentService paymentService, PayuService payuService) {
+    public OrdersController(Cart cart, OrderTmp orderTmp, OrderService orderService, UserService userService, DeliveryService deliveryService, PaymentService paymentService, PayuService payuService) {
         this.cart = cart;
         this.orderTmp = orderTmp;
         this.orderService = orderService;
-        this.addressService = addressService;
         this.userService = userService;
         this.deliveryService = deliveryService;
         this.paymentService = paymentService;
@@ -43,46 +43,49 @@ public class OrdersController {
     }
 
     @ModelAttribute("voivodeship")
-    public List<String> showVoivodeship(){
-        return List.of("Mazowieckie","Zachodniopomorskie","Pomorskie","Warmińsko-Mazurskie","Podlaskie","Lubelskie","Łódzkie","Wielkopolskie","Lubuskie","Dolnośląskie","Opolskie","Śląskie","Małopolskie","Podkarpackie","Świętokrzyskie");
+    public List<String> showVoivodeship() {
+        return List.of("Mazowieckie", "Zachodniopomorskie", "Pomorskie", "Warmińsko-Mazurskie", "Podlaskie", "Lubelskie", "Łódzkie", "Wielkopolskie", "Lubuskie", "Dolnośląskie", "Opolskie", "Śląskie", "Małopolskie", "Podkarpackie", "Świętokrzyskie");
     }
-//    @ModelAttribute("address")
-//    public Address returnAddress(){
-//        return orderTmp.getAddress();
-//    }
 
     @GetMapping(value = "/orders")
-    public String showOrders(Model model) {
-        List<Order> listOrders = orderService.findOrderByUserId(userService.findByUserName("Mateusz"));
+    public String showOrders(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        Optional<List<Order>> listOrders = orderService.findOrderByUserId(userService.findByUserName(currentUser.getUsername()).get());
         model.addAttribute("listOrders", listOrders);
         return "orders";
     }
 
     @GetMapping(value = "/order")
-    public String order(OrderDetails orderDetails) {
-        Long id = orderService.saveOrder(orderDetails);
-        return "redirect:/api/" + id;
-    }
-
-    @PostMapping(value = "/order")
-    public String saveDeliveryAddress(OrderDetails orderDetails) {
-
-        Long id = orderService.saveOrder(orderDetails);
+    public String order(@AuthenticationPrincipal CurrentUser currentUser, OrderDetails orderDetails) {
+        Long id = orderService.saveOrder(currentUser, orderDetails);
         return "redirect:/api/" + id;
     }
 
     @GetMapping(value = "/order/{id}")
-    public String showOrder(@PathVariable Long id, Model model) {
-        model.addAttribute("payment",payuService.ResponsePaymentPayU(id.toString()));
-        model.addAttribute("order", orderService.findOrderById(id));
-        return "showorder";
+    public String showOrder(@AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long id, Model model) {
+
+        if (orderService.findOrderById(id).isEmpty()) {
+            return "err";
+        } else if (orderService.findOrderById(id).get().getUser().getId().equals(currentUser.getUser().getId())) {
+            model.addAttribute("payment", payuService.ResponsePaymentPayU(id.toString()));
+            model.addAttribute("order", orderService.findOrderById(id));
+            return "showorder";
+        } else {
+            return "err";
+        }
+
     }
 
     @GetMapping(value = "order/step1")
-    public String getStepOne(Model model, Address address) {
+    public String getStepOne(@AuthenticationPrincipal CurrentUser currentUser, Model model, Optional<User> user,Address address) {
+
+        user = userService.findById(currentUser.getUser().getId());
+        address.setEmail(user.get().getEmail());
+        address.setFirstName(user.get().getFirstName());
+        address.setLastName(user.get().getLastName());
+        address.setEmail(user.get().getEmail());
         model.addAttribute("cart", cart.getCartItems());
-        model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
-        model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
+        model.addAttribute("count", cart.sum());
+        model.addAttribute("total", cart.total());
         model.addAttribute("address", address);
         return "order1step";
     }
@@ -96,8 +99,8 @@ public class OrdersController {
     @GetMapping(value = "order/step2")
     public String getStepTwo(Model model, Delivery delivery) {
         model.addAttribute("cart", cart.getCartItems());
-        model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
-        model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
+        model.addAttribute("count", cart.sum());
+        model.addAttribute("total", cart.total());
         model.addAttribute("delivery", delivery);
         return "order2step";
     }
@@ -111,8 +114,8 @@ public class OrdersController {
     @GetMapping(value = "order/step3")
     public String getStepThree(Model model, Payment payment) {
         model.addAttribute("cart", cart.getCartItems());
-        model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
-        model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
+        model.addAttribute("count", cart.sum());
+        model.addAttribute("total", cart.total());
         model.addAttribute("payment", payment);
         return "order3step";
     }

@@ -10,7 +10,7 @@
 <body>
 <div class="container-fluid bg-light mb-5">
     <div class="row">
-        <nav class="navbar navbar-dark navbar-expand-lg bg-primary bg-gradient">
+        <nav class="navbar navbar-dark navbar-expand-lg bg-primary bg-gradient bg-opacity-75">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -35,10 +35,6 @@
                         <li class="nav-item">
                             <a class="nav-link " href="/cart">Pokaż koszyk</a>
                         </li>
-<%--                        <li class="nav-item">--%>
-<%--                            <a class="nav-item" data-bs-toggle="offcanvas" href="#offcanvasRight"--%>
-<%--                               aria-controls="#offcanvasRight">Pokaż koszyk</a>--%>
-<%--                        </li>--%>
                     </ul>
                     <sec:authorize access="isAuthenticated()">
                         <p class="text-light me-2">Zalogowany jako: <sec:authentication
@@ -48,8 +44,9 @@
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
                     </sec:authorize>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Szukaj..." aria-label="Search">
+                    <form class="d-flex" role="search" action="/search" method="GET">
+                        <input class="form-control me-2" name="name" type="search" required="true"
+                               placeholder="Szukaj..." aria-label="Search">
                         <button class="btn btn-outline-light" type="submit">Szukaj</button>
                     </form>
                 </div>

@@ -19,15 +19,9 @@ public class PayUApiController {
 
 
     @GetMapping(value = "/rest/order/{id}")
-    public OrderDTO getOrder(@PathVariable Long id){
+    public OrderDTO getOrder(@PathVariable Long id) {
 
-        //System.out.println(orderService.findOrderById(id).getAsDTO().toString());
-        return orderService.findOrderById(id).getAsDTO();
+        return orderService.findOrderById(id).get().getAsDTO();
 
-    }
-
-    @GetMapping(value = "/rest/response")
-    public ResponsePayU responsePayU(){
-        return new ResponsePayU();
     }
 }

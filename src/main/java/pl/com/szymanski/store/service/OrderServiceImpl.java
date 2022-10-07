@@ -5,6 +5,7 @@ import pl.com.szymanski.store.domain.*;
 import pl.com.szymanski.store.repository.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,14 +29,14 @@ public class OrderServiceImpl implements OrderService {
         this.orderTmp = orderTmp;
     }
 
-    public Long saveOrder(OrderDetails orderDetails) {
+    public Long saveOrder(CurrentUser currentUser, OrderDetails orderDetails) {
         addressRepository.save(orderTmp.getAddress());
-        order.setOrderDetails(cart.getCartItems().stream().map(p -> new OrderDetails(p.getProduct(),p.getQuantity(),p.getQuantity()*p.getProduct().getPrice())).collect(Collectors.toList()));
+        order.setOrderDetails(cart.getCartItems().stream().map(p -> new OrderDetails(p.getProduct(), p.getQuantity(), p.getQuantity() * p.getProduct().getPrice())).collect(Collectors.toList()));
         order.setPayment(orderTmp.getPayment());
         order.setDelivery(orderTmp.getDelivery());
         order.setSumPrice(cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
         order.setAddress(orderTmp.getAddress());
-        order.setUser(userRepository.findUserById(1L));
+        order.setUser(userRepository.findUserById(currentUser.getUser().getId()).get());
         order.setPaymentMethod("cash");
         orderRepository.flush();
         orderRepository.save(order);
@@ -46,13 +47,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findOrderByUserId(User user) {
-        return orderRepository.findOrdersByUserIs(user);
+    public Optional<List<Order>> findOrderByUserId(User user) {
+        return Optional.ofNullable(orderRepository.findOrdersByUserIs(user));
     }
 
     @Override
-    public Order findOrderById(Long id) {
-        return orderRepository.findOrdersById(id);
+    public Optional<Order> findOrderById(Long id) {
+        return Optional.ofNullable(orderRepository.findOrdersById(id));
     }
 
 }

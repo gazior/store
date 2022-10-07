@@ -18,12 +18,12 @@
                 <tr>
                     <th scope="col">Numer zamówienia</th>
                     <th scope="col">Wartość zamówienia</th>
-
+                    <th scope="col">Płatność</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${listOrders}" var="order">
+                <c:forEach items="${listOrders.get()}" var="order">
                     <tr>
                         <td>${order.id}</td>
                         <td>${order.sumPrice}</td>

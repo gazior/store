@@ -29,12 +29,13 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = userService.findByUserName(userName);
+        User user = userService.findByUserName(userName).get();
         if(user == null){
             throw new UsernameNotFoundException(userName);
         }
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
-        return buildUserForAuthentication(user, authorities);
+        return new CurrentUser(user.getUsername(),user.getPassword(),
+                authorities, user);
     }
 
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {

@@ -56,75 +56,44 @@ public class SecurityConfig {
                 .antMatchers("/account/**").authenticated()
                 .antMatchers("/orders/**").authenticated()
                 .antMatchers("/order/**").authenticated()
-                .and().formLogin().loginPage("/login").failureHandler(authenticationFailureHandler())//.failureForwardUrl("/login/error")
+                .and().formLogin().loginPage("/login").failureHandler(authenticationFailureHandler())
                 .and().logout().logoutSuccessUrl("/");
-//        http.authorizeRequests()
-//                .antMatchers("/oauth_login")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .oauth2Login()
-//                .loginPage("/oauth_login");
         return http.build();
     }
-    @Bean
-    @Order(2)
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-            throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/cart/**").authenticated()
-                .antMatchers("/account/**").authenticated()
-                .antMatchers("/orders/**").authenticated()
-                .and().oauth2Login().loginPage("/login")
-                .and().logout().logoutSuccessUrl("/");
-//        http.authorizeRequests()
-//                .antMatchers("/oauth_login")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .oauth2Login()
-//                .loginPage("/oauth_login");
-        return http.build();
-    }
-
-
 //    @Bean
-//
+//    @Order(2)
 //    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
 //            throws Exception {
 //        http.authorizeRequests()
-//                .antMatchers("/").permitAll()
+//                .antMatchers("/","/**").permitAll()
 //                .antMatchers("/cart/**").authenticated()
 //                .antMatchers("/account/**").authenticated()
 //                .antMatchers("/orders/**").authenticated()
-//                //.and().formLogin().loginPage("/login")
-//                .and().oauth2Login()
+//                .and().oauth2Login().loginPage("/login")
 //                .and().logout().logoutSuccessUrl("/");
 //        return http.build();
 //    }
 
-    @Bean
-    public RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("829190185645-b21m1okcdneph59lrcgv7ldk4546sfcg.apps.googleusercontent.com")
-                .clientSecret("{noop}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")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-                .redirectUri("http://127.0.0.1:8080/authorized")
-                .scope(OidcScopes.OPENID)
-                .scope("message.read")
-                .scope("message.write")
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-                .build();
 
-        return new InMemoryRegisteredClientRepository(registeredClient);
-    }
+//    @Bean
+//    public RegisteredClientRepository registeredClientRepository() {
+//        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+//                .clientId("829190185645-b21m1okcdneph59lrcgv7ldk4546sfcg.apps.googleusercontent.com")
+//                .clientSecret("{noop}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")
+//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+//                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+//                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
+//                .redirectUri("http://127.0.0.1:8080/authorized")
+//                .scope(OidcScopes.OPENID)
+//                .scope("message.read")
+//                .scope("message.write")
+//                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+//                .build();
+//
+//        return new InMemoryRegisteredClientRepository(registeredClient);
+//    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -139,7 +108,6 @@ public class SecurityConfig {
     public ProviderSettings providerSettings() {
         return ProviderSettings.builder().build();
     }
-
 
     @Bean
     public WebClient.Builder getWebClient()

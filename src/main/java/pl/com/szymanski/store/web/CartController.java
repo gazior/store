@@ -3,7 +3,6 @@ package pl.com.szymanski.store.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.com.szymanski.store.domain.Address;
 import pl.com.szymanski.store.domain.Cart;
 import pl.com.szymanski.store.domain.CartItem;
 import pl.com.szymanski.store.domain.OrderTmp;
@@ -17,7 +16,6 @@ import java.util.Optional;
 public class CartController {
 
     private final Cart cart;
-
     private final OrderTmp orderTmp;
     private final ProductService productService;
 
@@ -54,10 +52,16 @@ public class CartController {
     @RequestMapping("/cart")
     public String showCart(Model model) {
 
-        model.addAttribute("cart", cart.getCartItems());
-        model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
-        model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
-        return "cart";
+        if (cart.getCartItems().stream().count() == 0) {
+            model.addAttribute("warn", "Koszyk jest pusty");
+            return "warn";
+        } else {
+            model.addAttribute("cart", cart.getCartItems());
+            model.addAttribute("count", cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
+            model.addAttribute("total", cart.getCartItems().stream().mapToDouble(p -> p.getProduct().getPrice() * p.getQuantity()).sum());
+            return "cart";
+        }
+
     }
 
     @RequestMapping("/cart/remove/{id}")

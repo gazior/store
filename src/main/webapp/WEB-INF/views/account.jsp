@@ -8,7 +8,39 @@
 </head>
 <body class="bg-light">
 <jsp:include page="navbar.jsp"/>
-<h1>Twoje konto</h1>
+<div class="container">
+<table class="table table-hover table-primary table-striped">
+    <thead>
+    <th>Twoje dane</th>
+    <th></th>
+    <th>Akcje</th>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Imię:</th>
+        <th><c:out value="${user.get().firstName}"/></th>
+        <th><a href="account/pp">Zmień hasło</a></th>
+    </tr>
+    <tr>
+        <th>Nazwisko:</th>
+        <th><c:out value="${user.get().lastName}"/></th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Miasto:</th>
+        <th><c:out value="${user.get().email}"/></th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Numer domu:</th>
+        <th><c:out value="${user.get().username}"/></th>
+        <th></th>
+    </tr>
+    </tbody>
+</table>
+</div>
 <jsp:include page="footer.jsp"/>
 <script src="/webjars/bootstrap/5.2.0/js/bootstrap.js"></script>
 </body>

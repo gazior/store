@@ -13,4 +13,6 @@ public interface ProductService {
     public Product findById(Long id);
     void saveProduct(Product product);
 
+    List<Product> findByNameEqualsIgnoreCase(String name);
+
 }

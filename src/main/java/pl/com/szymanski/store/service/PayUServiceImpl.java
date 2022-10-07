@@ -24,7 +24,7 @@ public class PayUServiceImpl implements PayuService<Response> {
     @Override
     public ResponseEntity<Response> RequestPayU(Long id) {
 
-        OrderDTO order = orderService.findOrderById(id).getAsDTO();
+        OrderDTO order = orderService.findOrderById(id).get().getAsDTO();
 
 //        buyer.setEmail(order.getAddress().getEmail());
 //        buyer.setLanguage("pl");

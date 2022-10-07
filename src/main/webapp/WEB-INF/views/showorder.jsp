@@ -24,9 +24,9 @@
             </tr>
             <tbody>
             <tr>
-                <th><c:out value="${order.id}"/></th>
-                <th><c:out value="${order.payment.name}"/></th>
-                <th><c:out value="${order.sumPrice}"/></th>
+                <th><c:out value="${order.get().id}"/></th>
+                <th><c:out value="${order.get().payment.name}"/></th>
+                <th><c:out value="${order.get().sumPrice}"/></th>
                 <th><c:out value="${payment}"/></th>
             </tr>
             </tbody>
@@ -40,39 +40,39 @@
             <tbody>
             <tr>
                 <th>Imię:</th>
-                <th><c:out value="${order.address.firstName}"/></th>
+                <th><c:out value="${order.get().address.firstName}"/></th>
             </tr>
             <tr>
               <th>Nazwisko:</th>
-                <th><c:out value="${order.address.lastName}"/></th>
+                <th><c:out value="${order.get().address.lastName}"/></th>
             </tr>
             <tr>
               <th>Email:</th>
-                <th><c:out value="${order.address.email}"/></th>
+                <th><c:out value="${order.get().address.email}"/></th>
             </tr>
             <tr>
               <th>Miasto:</th>
-                <th><c:out value="${order.address.city}"/></th>
+                <th><c:out value="${order.get().address.city}"/></th>
             </tr>
             <tr>
               <th>Ulica:</th>
-                <th><c:out value="${order.address.street}"/></th>
+                <th><c:out value="${order.get().address.street}"/></th>
             </tr>
             <tr>
               <th>Numer domu:</th>
-                <th><c:out value="${order.address.houseNumber}"/></th>
+                <th><c:out value="${order.get().address.houseNumber}"/></th>
             </tr>
             <tr>
               <th>Numer mieszkania</th>
-                <th><c:out value="${order.address.flatNumber}"/></th>
+                <th><c:out value="${order.get().address.flatNumber}"/></th>
             </tr>
             <tr>
               <th>Kod pocztowy:</th>
-                <th><c:out value="${order.address.zipCode}"/></th>
+                <th><c:out value="${order.get().address.zipCode}"/></th>
             </tr>
             <tr>
               <th>Województwo:</th>
-                <th><c:out value="${order.address.voivodeship}"/></th>
+                <th><c:out value="${order.get().address.voivodeship}"/></th>
             </tr>
             </tbody>
         </table>
@@ -89,7 +89,7 @@
                 </thead>
             </tr>
             <tbody>
-            <c:forEach items="${order.orderDetails}" var="order">
+            <c:forEach items="${order.get().orderDetails}" var="order">
                 <tr>
                     <th>${order.product.name}</th>
                     <th>${order.sumPrice}</th>
