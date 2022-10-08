@@ -8,7 +8,7 @@
 </head>
 <body class="bg-light">
 <jsp:include page="navbar.jsp"/>
-<div class="container-fluid"><p class="alert alert-success" role="alert">Dodano do koszyka</p></div>
+<div class="container"><p class="alert alert-success" role="alert">Dodano do koszyka</p></div>
 <jsp:include page="footer.jsp"/>
 <script src="/webjars/bootstrap/5.2.0/js/bootstrap.js"></script>
 </body>

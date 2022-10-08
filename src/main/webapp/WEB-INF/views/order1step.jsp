@@ -23,8 +23,8 @@
         <div class="row g-5">
             <div class="col-md-5 col-lg-4 order-md-last">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary">Twój koszyk</span>
-                    <span class="badge bg-primary rounded-pill">${count}</span>
+                    <span class="text-dark">Twój koszyk</span>
+                    <span class="badge bg-dark rounded-pill">${count}</span>
                 </h4>
                 <ul class="list-group mb-3">
                     <c:forEach items="${cart}" var="product">
@@ -101,7 +101,7 @@
 
                         <div class="col-6">
                             <label for="address" class="form-label">Numer mieszkania</label>
-                            <form:input path="flatNumber" type="text" class="form-control" id="flatNumber" required="false"/>
+                            <form:input path="flatNumber" type="text" class="form-control" id="flatNumber" />
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
                             </div>
@@ -130,7 +130,7 @@
                     </div>
 
                     <hr class="my-4">
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Wybierz rodzaj dostawy</button>
+                    <button class="w-100 btn btn-dark text-warning btn-lg" type="submit">Wybierz rodzaj dostawy</button>
 
                 </form:form>
             </div>

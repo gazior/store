@@ -11,8 +11,9 @@ import java.util.Optional;
 @Service
 public interface OrderService {
 
-    Long saveOrder(CurrentUser currentUser,OrderDetails orderDetails);
+    Long saveOrder(Order order,CurrentUser currentUser,OrderDetails orderDetails);
     Optional<List<Order>> findOrderByUserId(User user);
     Optional<Order> findOrderById(Long id);
+    void updateStatus(Order order);
 
 }

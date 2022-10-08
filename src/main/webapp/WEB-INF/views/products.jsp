@@ -11,13 +11,13 @@
 <div class="container">
     <div class="row">
         <c:forEach items="${products}" var="product">
-        <div class="col-2">
-            <div class="card mb-2">
-                <img src=${product.url} class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${product.name}</h5>
-                    <p class="card-subtitle">${product.price}</p>
-                  <a href="/cart/${product.id}" class="btn btn-primary me-1">Dodaj do koszyka</a>
+        <div class="col-4">
+            <div class="card mb-2" >
+                <img src="${product.url}" class="card-img-top" alt="...">
+                <div class="card-body bg-dark text-warning">
+                    <h9 class="card-title vh-100">${product.name}</h9>
+                    <p class="card-subtitle">${product.price} PLN</p>
+                  <a href="/cart/${product.id}" class="btn btn-dark text-warning border-warning me-1">Dodaj do koszyka</a>
                 </div>
             </div>
         </div>

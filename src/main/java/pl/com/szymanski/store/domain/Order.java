@@ -39,6 +39,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private StatusOrder statusOrder;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "orders_order_details", joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "order_detail_id"))

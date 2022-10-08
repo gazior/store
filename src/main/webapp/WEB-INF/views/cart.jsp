@@ -11,8 +11,8 @@
 <div class="container">
     <div class="col-md-8 col-lg-8 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Twój koszyk</span>
-            <span class="badge bg-primary rounded-pill">${count}</span>
+            <span class="text-dark">Twój koszyk</span>
+            <span class="badge bg-dark rounded-pill">${count}</span>
         </h4>
         <ul class="list-group mb-3">
             <c:forEach items="${cart}" var="product">
@@ -23,10 +23,10 @@
                     <form class="text-muted" action="/cart/add" method="GET">
                         <input type="text" value="${product.quantity}" name="quantity">
                         <input type="hidden" value="${product.product.name}" name="product">
-                        <input class="btn btn-primary" type="submit" value="Zmień ilość">
+                        <input class="btn btn-dark text-warning" type="submit" value="Zmień ilość">
                     </form>
-                    <span class="text-muted">${product.quantity*product.product.price}</span>
-                    <span class="text-muted"><a href="/cart/remove/${cart.indexOf(product)}">Usuń</a></span>
+                    <h4 class="">${product.quantity*product.product.price}</h4>
+                    <span class="text-muted"><a href="/cart/remove/${cart.indexOf(product)}" class="btn btn-dark text-warning">Usuń</a></span>
                 </li>
             </c:forEach>
 
@@ -37,7 +37,7 @@
         </ul>
 
         <div class="input-group">
-            <a href="/order/step1" class="btn btn-secondary">Kup teraz!</a>
+            <a href="/order/step1" class="btn btn-dark text-warning">Kup teraz!</a>
         </div>
     </div>
 </div>

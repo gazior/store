@@ -37,7 +37,7 @@
                 </div>
 
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit" class="btn btn-primary">Zaloguj</button>
+                <button type="submit" class="btn btn-dark">Zaloguj</button>
             </form>
         </div>
         <div class="col-4">
@@ -63,7 +63,7 @@
                     <form:input path="email" type="email" class="form-control" id="inputEmail4"/>
                 </div>
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary">Zarejestruj</button>
+                    <button type="submit" class="btn btn-dark">Zarejestruj</button>
                 </div>
             </form:form>
         </div>

@@ -21,8 +21,10 @@ public class OrdersController {
     private final PaymentService paymentService;
     private final PayuService payuService;
 
+    private final OrderStatusService orderStatusService;
 
-    public OrdersController(Cart cart, OrderTmp orderTmp, OrderService orderService, UserService userService, DeliveryService deliveryService, PaymentService paymentService, PayuService payuService) {
+
+    public OrdersController(Cart cart, OrderTmp orderTmp, OrderService orderService, UserService userService, DeliveryService deliveryService, PaymentService paymentService, PayuService payuService, OrderStatusService orderStatusService) {
         this.cart = cart;
         this.orderTmp = orderTmp;
         this.orderService = orderService;
@@ -30,6 +32,7 @@ public class OrdersController {
         this.deliveryService = deliveryService;
         this.paymentService = paymentService;
         this.payuService = payuService;
+        this.orderStatusService = orderStatusService;
     }
 
     @ModelAttribute("deliveries")
@@ -55,28 +58,37 @@ public class OrdersController {
     }
 
     @GetMapping(value = "/order")
-    public String order(@AuthenticationPrincipal CurrentUser currentUser, OrderDetails orderDetails) {
-        Long id = orderService.saveOrder(currentUser, orderDetails);
-        return "redirect:/api/" + id;
+    public String order(@AuthenticationPrincipal CurrentUser currentUser, OrderDetails orderDetails,Order order) {
+
+        Long id = orderService.saveOrder(order,currentUser, orderDetails);
+
+        Long payment = orderService.findOrderById(id).get().getPayment().getId();
+        if (payment == 3) {
+            return "redirect:/api/" + id;
+        } else {
+            return "redirect:/order/" + id;
+        }
     }
 
     @GetMapping(value = "/order/{id}")
     public String showOrder(@AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long id, Model model) {
 
-        if (orderService.findOrderById(id).isEmpty()) {
+        Optional<Order> order = orderService.findOrderById(id);
+        if (order.isEmpty()) {
             return "err";
-        } else if (orderService.findOrderById(id).get().getUser().getId().equals(currentUser.getUser().getId())) {
-            model.addAttribute("payment", payuService.ResponsePaymentPayU(id.toString()));
-            model.addAttribute("order", orderService.findOrderById(id));
+        } else if (order.get().getUser().getId().equals(currentUser.getUser().getId())) {
+            model.addAttribute("order", order.get());
+            if (order.get().getPayment().getName().equals("PayU")) {
+                model.addAttribute("payment", payuService.ResponsePaymentPayU(id.toString()));
+            }
             return "showorder";
         } else {
             return "err";
         }
-
     }
 
     @GetMapping(value = "order/step1")
-    public String getStepOne(@AuthenticationPrincipal CurrentUser currentUser, Model model, Optional<User> user,Address address) {
+    public String getStepOne(@AuthenticationPrincipal CurrentUser currentUser, Model model, Optional<User> user, Address address) {
 
         user = userService.findById(currentUser.getUser().getId());
         address.setEmail(user.get().getEmail());
@@ -124,6 +136,20 @@ public class OrdersController {
     public String setStepTwo(Payment payment) {
         orderTmp.setPayment(payment);
         return "redirect:/order";
+    }
+
+    @GetMapping(value = "/order/cancel/{id}")
+    public String cancelOrder(@AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long id, Model model, Order order) {
+
+        if (orderService.findOrderById(id).isEmpty()) {
+            return "err";
+        } else {
+            order = orderService.findOrderById(id).get();
+            order.setStatusOrder(orderStatusService.findByDescription("Anulowane"));
+            orderService.updateStatus(order);
+            return "redirect:/orders";
+        }
+
     }
 
 }

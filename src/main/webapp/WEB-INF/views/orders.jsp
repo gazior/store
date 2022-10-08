@@ -13,12 +13,14 @@
         <div class="col-12">
             <td><c:out value="${payment}"></c:out></td>
 
-            <table class="table table-hover table-primary table-striped">
+            <table class="table table-hover table-dark link-warning bg-gradient align-text-top">
                 <thead>
                 <tr>
                     <th scope="col">Numer zamówienia</th>
                     <th scope="col">Wartość zamówienia</th>
                     <th scope="col">Płatność</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -28,7 +30,9 @@
                         <td>${order.id}</td>
                         <td>${order.sumPrice}</td>
                         <td>${order.payment.name}</td>
-                        <td><a href="/order/${order.id}">Szczegóły</a></td>
+                        <td>${order.statusOrder.description}</td>
+                        <td><a class="btn text-warning" href="/order/${order.id}">Szczegóły</a></td>
+                        <td><a class="btn text-warning" href="/order/cancel/${order.id}">Anuluj</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

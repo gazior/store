@@ -9,7 +9,7 @@
 <body class="bg-light">
 <jsp:include page="navbar.jsp"/>
 <div class="container">
-<table class="table table-hover table-primary table-striped">
+<table class="table table-hover table-dark link-warning align-text-top">
     <thead>
     <th>Twoje dane</th>
     <th></th>
@@ -19,7 +19,7 @@
     <tr>
         <th>Imię:</th>
         <th><c:out value="${user.get().firstName}"/></th>
-        <th><a href="account/pp">Zmień hasło</a></th>
+        <th><a href="account/pp" class="btn text-warning" >Zmień hasło</a></th>
     </tr>
     <tr>
         <th>Nazwisko:</th>

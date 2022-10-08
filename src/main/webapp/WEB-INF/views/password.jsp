@@ -22,7 +22,7 @@
                            required="true">
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit" class="btn btn-primary">Zmień hasło</button>
+                <button type="submit" class="btn btn-dark">Zmień hasło</button>
             </div>
         </form>
     </div>
