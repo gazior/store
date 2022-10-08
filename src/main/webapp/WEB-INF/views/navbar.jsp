@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Store</title>
     <link rel="stylesheet"
           href="/webjars/bootstrap/5.2.0/css/bootstrap.css"/>
 </head>

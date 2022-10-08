@@ -7,6 +7,8 @@ import pl.com.szymanski.store.domain.PayU.OrderDTO;
 import pl.com.szymanski.store.domain.PayU.Response;
 import pl.com.szymanski.store.domain.PayU.ResponsePayU;
 
+import java.util.Objects;
+
 @Service
 public class PayUServiceImpl implements PayuService<Response> {
 
@@ -25,27 +27,6 @@ public class PayUServiceImpl implements PayuService<Response> {
     public ResponseEntity<Response> RequestPayU(Long id) {
 
         OrderDTO order = orderService.findOrderById(id).get().getAsDTO();
-
-//        buyer.setEmail(order.getAddress().getEmail());
-//        buyer.setLanguage("pl");
-//        buyer.setPhone("654111654");
-//        buyer.setFirstName(order.getAddress().getFirstName());
-//        buyer.setLastName(order.getAddress().getLastName());
-//
-//        product1.setName("test");
-//        product1.setQuantity("1");
-//        product1.setUnitPrice("2000");
-//
-//        payU.setBuyer(buyer);
-//        payU.setProducts(Arrays.asList(product1));
-//        payU.setCurrencyCode("PLN");
-//        payU.setCustomerIp("127.0.0.1");
-//        //payU.setExtOrderId(id+"");
-//        payU.setNotifyUrl("http://localhost:8080/notify");
-//        payU.setContinueUrl("http://localhost:8080/order/" + id);
-//        payU.setMerchantPosId("300746");
-//        payU.setTotalAmount(order.getSumPrice().intValue() + "0");
-//        payU.setDescription("store");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth("d9a4536e-62ba-4f60-8017-6053211d3f47");
@@ -72,7 +53,7 @@ public class PayUServiceImpl implements PayuService<Response> {
                         entity,
                         ResponsePayU.class);
 
-        return response.getBody()
+        return Objects.requireNonNull(response.getBody())
                 .getOrders()
                 .get(0)
                 .getStatus();

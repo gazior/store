@@ -10,7 +10,7 @@ public class StartController {
 
     @RequestMapping("/")
     public String start() {
-        return "home";
+        return "redirect:/products";
     }
 
 }

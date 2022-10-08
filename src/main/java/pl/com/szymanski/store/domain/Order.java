@@ -26,7 +26,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double sumPrice;
-    private String paymentMethod;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
