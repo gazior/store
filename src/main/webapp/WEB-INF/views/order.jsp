@@ -138,7 +138,9 @@
         </div>
     </div>
 </div>
-<jsp:include page="footer.jsp"/>
+</div>
+<div class="fixed-bottom"><jsp:include page="footer.jsp"/>
+</div>
 <script src="/webjars/bootstrap/5.2.0/js/bootstrap.js"></script>
 </body>
 </html>

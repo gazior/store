@@ -10,7 +10,9 @@
 <jsp:include page="navbar.jsp"/>
 <div class="container"><p class="alert alert-warning" role="alert"><c:out value="${warn}" default="Dostęp zabroniony"/></p></div>
 
-<jsp:include page="footer.jsp"/>
+</div>
+<div class="fixed-bottom"><jsp:include page="footer.jsp"/>
+</div>
 <script src="/webjars/bootstrap/5.2.0/js/bootstrap.js"></script>
 </body>
 </html>
