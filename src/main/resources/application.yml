@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/store
+    username: root
+    password: store
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 829190185645-b21m1okcdneph59lrcgv7ldk4546sfcg.apps.googleusercontent.com
+            client-secret: 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
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+
+
+

@@ -8,16 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
-import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -26,6 +21,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import pl.com.szymanski.store.service.CustomAuthenticationFailureHandler;
 
 import java.util.UUID;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -57,7 +54,8 @@ public class SecurityConfig {
                 .antMatchers("/orders/**").authenticated()
                 .antMatchers("/order/**").authenticated()
                 .and().formLogin().loginPage("/login").failureHandler(authenticationFailureHandler())
-                .and().logout().logoutSuccessUrl("/");
+                .and().logout().logoutSuccessUrl("/")
+                .and().oauth2Login(f -> f.loginPage("/login").userInfoEndpoint(withDefaults()));
         return http.build();
     }
 //    @Bean
@@ -104,10 +102,7 @@ public class SecurityConfig {
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new CustomAuthenticationFailureHandler();
     }
-    @Bean
-    public ProviderSettings providerSettings() {
-        return ProviderSettings.builder().build();
-    }
+
 
     @Bean
     public WebClient.Builder getWebClient()

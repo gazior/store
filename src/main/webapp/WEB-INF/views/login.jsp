@@ -66,6 +66,7 @@
                     <button type="submit" class="btn btn-dark">Zarejestruj</button>
                 </div>
             </form:form>
+                </body>
         </div>
 
     </div>

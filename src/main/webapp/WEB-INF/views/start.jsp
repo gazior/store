@@ -11,5 +11,6 @@
     <title>Store</title>
 </head>
 <body>
+<tr><td><a href="/oauth2/authorization/google">Google</a></td></tr>
 </body>
 </html>

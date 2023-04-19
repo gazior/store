@@ -23,11 +23,8 @@ public class PayUController {
     @ResponseBody
     public ResponseEntity<String> acceptedPayment(@PathVariable String id) {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth("d9a4536e-62ba-4f60-8017-6053211d3f47");
-        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+        HttpEntity<String> entity = new HttpEntity<>("parameters", setHeaders());
 
         ResponseEntity<String> response = restTemplate
                 .exchange("https://secure.snd.payu.com/api/v2_1/orders/" + paymentPayUService.findByExtOrderIdIs(id).getOrderId(),
@@ -40,14 +37,10 @@ public class PayUController {
     }
 
     @GetMapping(value = "/continue/order/{id}")
-    @ResponseBody
+    //@ResponseBody
     public ResponseEntity<ResponsePayU> acceptedPayment1(@PathVariable String id) {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth("d9a4536e-62ba-4f60-8017-6053211d3f47");
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+        HttpEntity<String> entity = new HttpEntity<>("parameters", setHeaders());
 
         ResponseEntity<ResponsePayU> response = restTemplate
                 .exchange("https://secure.snd.payu.com/api/v2_1/orders/" + paymentPayUService.findByExtOrderIdIs(id).getOrderId(),
@@ -57,5 +50,13 @@ public class PayUController {
 
         return response;
 
+    }
+
+    private HttpHeaders setHeaders() {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth("d9a4536e-62ba-4f60-8017-6053211d3f47");
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return headers;
     }
 }
